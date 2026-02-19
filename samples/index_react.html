@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <div id="root"></div>
+</body>
+
+
+<!-- This setup is not suitable for production. -->
+<!-- Only use it in development! -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.7.0/dist/es-module-shims.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react?dev",
+    "react-dom/client": "https://esm.sh/react-dom/client?dev"
+  }
+}
+</script>
+
+
+<script type="text/babel" data-type="module">
+import React, { useState } from 'react';
+import { createRoot } from 'react-dom/client';
+
+const URL = "https://6964f0b2e8ce952ce1f3a55e.mockapi.io/api/login"
+
+const getUsers = () => {
+  return fetch("https://6964f0b2e8ce952ce1f3a55e.mockapi.io/api/login/Users").then(result => result.json())
+  // return [{"createdAt":"2026-01-12T12:56:47.055Z","name":"Alice Will III","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/23.jpg","email":"Mabelle74@hotmail.com","id":"1"},{"createdAt":"2026-01-12T03:22:35.264Z","name":"Brett Legros","avatar":"https://avatars.githubusercontent.com/u/80525264","email":"Golden_Cremin@yahoo.com","id":"2"},{"createdAt":"2026-01-11T14:23:16.150Z","name":"Jean Kautzer","avatar":"https://avatars.githubusercontent.com/u/69595591","email":"Jaquelin.Wolf@yahoo.com","id":"3"},{"createdAt":"2026-01-12T10:28:38.775Z","name":"Billie Ledner","avatar":"https://avatars.githubusercontent.com/u/82662041","email":"Shannon53@gmail.com","id":"4"},{"createdAt":"2026-01-12T03:45:39.994Z","name":"Wallace Lynch","avatar":"https://avatars.githubusercontent.com/u/48847815","email":"Elody.Herzog11@hotmail.com","id":"5"},{"createdAt":"2026-01-11T17:00:58.426Z","name":"Miss Marjorie Toy","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/38.jpg","email":"Lonnie93@yahoo.com","id":"6"},{"createdAt":"2026-01-12T11:08:07.157Z","name":"Dolores Toy","avatar":"https://avatars.githubusercontent.com/u/16118830","email":"Clair.Doyle2@yahoo.com","id":"7"},{"createdAt":"2026-01-11T22:11:24.286Z","name":"Roberto O'Keefe","avatar":"https://avatars.githubusercontent.com/u/33500662","email":"Laron82@yahoo.com","id":"8"},{"createdAt":"2026-01-12T07:36:27.732Z","name":"Robyn Roberts","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/33.jpg","email":"Jonas_Huels@hotmail.com","id":"9"},{"createdAt":"2026-01-12T10:48:47.718Z","name":"Barbara Bashirian","avatar":"https://avatars.githubusercontent.com/u/57721402","email":"Cecelia9@hotmail.com","id":"10"},{"createdAt":"2026-01-12T12:13:50.447Z","name":"Marlene Hansen","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/11.jpg","email":"Juliana_Tillman22@yahoo.com","id":"11"},{"createdAt":"2026-01-11T16:02:35.315Z","name":"Mrs. Alma Kuvalis","avatar":"https://avatars.githubusercontent.com/u/13012271","email":"Patrick.Yundt@gmail.com","id":"12"},{"createdAt":"2026-01-12T09:29:48.140Z","name":"Todd Schuster","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/26.jpg","email":"Brent.Williamson@yahoo.com","id":"13"},{"createdAt":"2026-01-11T19:43:29.740Z","name":"Tyler Friesen","avatar":"https://avatars.githubusercontent.com/u/30557050","email":"Samantha.Erdman@yahoo.com","id":"14"},{"createdAt":"2026-01-11T13:19:02.418Z","name":"Mr. Pablo Brekke","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/75.jpg","email":"Liliana_Smith60@yahoo.com","id":"15"},{"createdAt":"2026-01-12T02:25:43.984Z","name":"Mrs. Becky Weber","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/81.jpg","email":"Giovani51@yahoo.com","id":"16"},{"createdAt":"2026-01-11T17:53:01.359Z","name":"Casey VonRueden","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/78.jpg","email":"Clarissa.Heller50@yahoo.com","id":"17"},{"createdAt":"2026-01-11T23:00:37.063Z","name":"Jordan Braun PhD","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/87.jpg","email":"Mia_Marks9@gmail.com","id":"18"},{"createdAt":"2026-01-11T22:27:25.860Z","name":"Mr. Sheldon Cronin","avatar":"https://avatars.githubusercontent.com/u/63550957","email":"Zion.Rodriguez@yahoo.com","id":"19"},{"createdAt":"2026-01-12T10:50:37.319Z","name":"Irma Hermiston","avatar":"https://avatars.githubusercontent.com/u/77557442","email":"Javier41@gmail.com","id":"20"},{"createdAt":"2026-01-11T14:49:03.286Z","name":"Nancy Jerde","avatar":"https://avatars.githubusercontent.com/u/12810291","email":"Ellie30@yahoo.com","id":"21"},{"createdAt":"2026-01-12T04:09:47.155Z","name":"Faye Runolfsson","avatar":"https://avatars.githubusercontent.com/u/9721288","email":"Jerad43@gmail.com","id":"22"},{"createdAt":"2026-01-12T09:57:00.769Z","name":"Devin Casper","avatar":"https://avatars.githubusercontent.com/u/11095086","email":"Pete_Wilderman@gmail.com","id":"23"},{"createdAt":"2026-01-12T08:14:56.539Z","name":"Merle Dooley","avatar":"https://avatars.githubusercontent.com/u/62692706","email":"Charlie.Farrell68@hotmail.com","id":"24"},{"createdAt":"2026-01-11T16:00:44.834Z","name":"Elisa Blick","avatar":"https://avatars.githubusercontent.com/u/99694389","email":"Marcelina28@hotmail.com","id":"25"},{"createdAt":"2026-01-12T06:26:36.435Z","name":"Joanna Leannon","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/86.jpg","email":"Kendall.Langworth@yahoo.com","id":"26"},{"createdAt":"2026-01-12T03:13:49.985Z","name":"Virginia Donnelly","avatar":"https://avatars.githubusercontent.com/u/8324073","email":"Gayle_Runte52@hotmail.com","id":"27"},{"createdAt":"2026-01-11T21:03:12.460Z","name":"Willard Schinner","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/19.jpg","email":"Margret_Marquardt@yahoo.com","id":"28"},{"createdAt":"2026-01-11T17:13:40.405Z","name":"Alton Terry","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/54.jpg","email":"Adell70@gmail.com","id":"29"},{"createdAt":"2026-01-11T17:57:53.338Z","name":"Dr. Armando Thiel","avatar":"https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/76.jpg","email":"Vita70@yahoo.com","id":"30"},{"createdAt":"2026-01-12T09:46:06.571Z","name":"Dr. Santos Nader","avatar":"https://avatars.githubusercontent.com/u/31981403","email":"Arthur_Ullrich@gmail.com","id":"31"}]
+}
+
+
+const Item = ({ id }) => <li>Item {id}</li>
+
+const ListItems = ( { items }) => {
+    return <ul>
+        {items.map(item => <Item id={item} key={item} />)}
+    </ul>
+}
+
+function Apps({ name: name_person }) {
+    let [i, setIValue] = useState(0)
+    let [items, setItems] = useState([1,2,3])
+    let [users, setUsers] = useState([])
+    
+    getUsers().then(respUsers => {
+      setUsers(respUsers)
+      console.log("Users", respUsers)
+    })
+
+    const userNames = users.map(user => user.name)
+    console.log("userNames", userNames)
+
+
+    console.log("APP rendered")
+
+    const addItem = () => {
+      setItems([ ...items, items.length+1])
+      setIValue(i+1)
+      console.log("add itm", items, i)
+    }
+
+
+    return <h1>
+        {name_person} 
+        <br/>
+        {i}
+        <br/>
+        // <button onClick={addItem}>Add item</button>
+        <ListItems items={userNames} />
+      </h1>
+}
+
+const root = createRoot(document.getElementById('root'))
+root.render(<Apps name="test" />)
+
+</script>
+
+
+
+</html>
+
+
+<!-- let p = new Promise((resolve, reject) => {
+  // making a api call
+  // any operation
+  console.log("Main function")
+  // resolve("Success resolved the promise")
+  reject("Promise failed")
+}).then(
+  (value) => { 
+    console.log("p.THEN ", value)
+    return { "first": true }
+  } 
+).then(
+  (value) => console.log("p.THEN 2", value)
+).catch(
+  (reason) => {
+    console.log("Caughth error: ", reason)
+  }
+) -->

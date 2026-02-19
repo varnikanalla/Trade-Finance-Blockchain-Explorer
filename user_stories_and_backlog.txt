@@ -1,0 +1,48 @@
+Users: bank, corporate, auditor, admin
+
+User stories:
+
+As a public user
+    I should see the landing page on opening /
+    I should be able to login with email and password
+    I should be able to signup with name, email, password, org, role
+    I should be able to reset my password using forgot password
+
+As a user
+    I should see my profile data (name, email, org, role)
+
+
+Context:
+fastAPI server: localhost:8000
+react server: localhost:3000
+
+
+specification
+Backlogs:
+
+1. Implement route localhost:3000/  and return the landing page <...><the figma file>
+2. Show Login button in the landing page .. And on clicking should redirect to /login
+3. When opened /login if the user is valid then redirect to /profile
+4. Implement login page with email, password and submit btn. <...>
+    APIContract:
+        POST localhost:8000/login { email, password }
+        Returns 400
+        Returns { accessToken:231 }
+        Headers: set-Cookie: refreshToken=123
+    = implement /login route in the backend with inputs { ... } and return ...
+            
+5. When user enters /profile check for valid user 
+    APIContract:
+        GET locahost:8000/user
+        Headers: Bearer: accessToken
+        Returns: { name, email, org, role }
+        Returns 401
+
+    When returned 401 check if the refreshToken exists or able to refresh
+    APIContract:
+        POST localhost:8000/refresh
+        cookie: refreshToken=123
+        Return { accessToken }
+        Return 401
+        Headers: Set-Cookie: refreshToken=''
+

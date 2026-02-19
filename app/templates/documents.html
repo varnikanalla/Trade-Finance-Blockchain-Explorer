@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Documents</title>
+</head>
+<body>
+  <h2>Documents</h2>
+  <ul>
+    {% for doc in documents %}
+      <li>
+        <a href="/ui/documents/{{ doc.id }}">
+          {{ doc.doc_number }} ({{ doc.doc_type }})
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

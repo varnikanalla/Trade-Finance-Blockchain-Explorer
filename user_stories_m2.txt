@@ -1,0 +1,64 @@
+Users: bank, corporate(buyer_id, seller_id), auditor
+
+
+
+As as buyer
+    I should be able to upload PO(purchase order) along with metadata of seller_id
+    I should be able to make changes to the PO (AMEND)
+
+    I should be able to mark the BOL RECEIVED
+
+
+As a bank
+    I should be able to issue LOC for a PO (LOC metadata PO's id)
+    I should be able to mark the Invoice as PAID
+
+
+As an auditor
+    I should be able to verify the PO and it's LOC  (marks as VERIFIED)
+
+
+As a seller
+    I should be able to issue a BOL for a PO (details of the shipment, tracking)
+    I should be able to mark the BOL as SHIPPED
+    I should be able to issue an INVOICE to metadata(BOL, buyer)
+
+
+Backlog:
+1. create apis
+    APIContract:
+        POST /upload { doc_number, file, seller_id }
+        Headers: Bearer: accessToken
+        
+        Returns 200
+
+        saves the file to a path
+        local dir: /files/file_name_01.pdf
+        file_url = file_name
+        creates the Documents record with owner_id, file_url(file_name_01.pdf), hash, doc_number
+        creates the LedgerEntries record with doc_id, actor_id, metadata(seller_id), action=ISSUED
+    
+    APIContract:
+        GET /file?file_url=...
+        Returns the file data
+
+2. Create a document view in UI
+    Shows the document details and the timeline of it's ledger entries
+
+    APIContract:
+        GET /document?id=docid
+        Returns the document details (file_url) + ledger entries?
+    
+
+3. Show an Upload button to the buyer. 
+    On clicking it, show a form page with upload fields, seller selection field
+    When the form is submitted, it makes an API call to /upload
+    then fetches and shows the created doc
+
+4. Show the RECEIVED button for the buyer in the BOL document if it's in SHIPPED
+    APIContract:
+        POST /action { doc_id, action }
+        Returns: 200
+
+        should create ledgerEntry
+    

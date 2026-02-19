@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Document</title>
+</head>
+<body>
+<h2>Upload Document</h2>
+
+<form action="/documents/upload" method="post" enctype="multipart/form-data">
+    <label>Document Number:</label><br>
+    <input type="text" name="doc_number" required><br><br>
+
+    <label>Document Type:</label><br>
+    <select name="doc_type">
+        <option value="PO">PO</option>
+        <option value="BOL">BOL</option>
+        <option value="INVOICE">INVOICE</option>
+        <option value="LOC">LOC</option>
+    </select><br><br>
+
+    <label>Seller ID:</label><br>
+    <input type="number" name="seller_id" required><br><br>
+
+    <label>Upload File:</label><br>
+    <input type="file" name="file" required><br><br>
+
+    <button type="submit">Upload</button>
+</form>
+
+</body>
+</html>

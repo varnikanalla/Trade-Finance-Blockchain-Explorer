@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document Details</title>
+</head>
+<body>
+
+<h2>Document Details</h2>
+
+<p><b>ID:</b> {{ document.id }}</p>
+<p><b>Number:</b> {{ document.doc_number }}</p>
+<p><b>Type:</b> {{ document.doc_type }}</p>
+<p><b>File:</b> {{ document.file_url }}</p>
+
+<hr>
+
+<h3>Ledger Timeline</h3>
+<ul>
+    {% for l in ledger %}
+        <li>{{ l.timestamp }} — <b>{{ l.action }}</b></li>
+    {% endfor %}
+</ul>
+<hr>
+<h3>Actions</h3>
+
+<form method="post" action="/documents/action">
+    <input type="hidden" name="doc_id" value="{{ document.id }}">
+
+    <label>Role:</label>
+    <select name="role" onchange="showActions(this.value)">
+        <option value="">--select--</option>
+        <option value="buyer">Buyer</option>
+        <option value="seller">Seller</option>
+        <option value="bank">Bank</option>
+        <option value="auditor">Auditor</option>
+    </select>
+
+    <br><br>
+
+    <!-- SELLER -->
+    <div id="seller-actions" style="display:none;">
+        <button type="submit" name="action" value="ISSUE_BOL">Issue BOL</button>
+        <button type="submit" name="action" value="SHIPPED">Mark Shipped</button>
+    </div>
+
+    <!-- BUYER -->
+    <div id="buyer-actions" style="display:none;">
+        <button type="submit" name="action" value="RECEIVED">Mark Received</button>
+    </div>
+
+    <!-- BANK -->
+    <div id="bank-actions" style="display:none;">
+        <button type="submit" name="action" value="ISSUE_LOC">Issue LOC</button>
+        <button type="submit" name="action" value="PAID">Mark Paid</button>
+    </div>
+
+    <!-- AUDITOR -->
+    <div id="auditor-actions" style="display:none;">
+        <button type="submit" name="action" value="VERIFIED">Verify</button>
+    </div>
+</form>
+
+<script>
+function showActions(role) {
+    document.getElementById("seller-actions").style.display = "none";
+    document.getElementById("buyer-actions").style.display = "none";
+    document.getElementById("bank-actions").style.display = "none";
+    document.getElementById("auditor-actions").style.display = "none";
+
+    if (role === "seller") document.getElementById("seller-actions").style.display = "block";
+    if (role === "buyer") document.getElementById("buyer-actions").style.display = "block";
+    if (role === "bank") document.getElementById("bank-actions").style.display = "block";
+    if (role === "auditor") document.getElementById("auditor-actions").style.display = "block";
+}
+</script>
